@@ -19,8 +19,8 @@ def create_bucket(client: Any, bucket: str) -> None:
     try:
         client.create_bucket(Bucket=bucket)
         logger.info(f"Bucket {bucket} created successfully")
-    except Exception:
-        logger.critical(f"Bucket {bucket} could not be created")
+    except Exception as e:
+        logger.critical(f"Bucket {bucket} could not be created. {e}")
 
 
 def create_bucket_if_not_exists(client: Any, bucket: str):

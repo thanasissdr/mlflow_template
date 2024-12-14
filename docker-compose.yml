@@ -7,11 +7,9 @@ services:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
 
-
     ports:
       - 9000:9000
       - 9001:9001
-
 
     volumes:
       - minio_data:/minio_data
@@ -19,9 +17,11 @@ services:
     command: server /minio_data --console-address ":9001"
 
 
-  mlflow:
-    image: ghcr.io/mlflow/mlflow:latest
 
+
+  mlflow:
+  
+    image: ghcr.io/mlflow/mlflow:latest
 
     ports: 
       - 5000:5000
