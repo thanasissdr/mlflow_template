@@ -8,7 +8,6 @@ def load_data_factory(dataset_name: str) -> Bunch | tuple:
             return load_iris()
         case "breast_cancer":
             return load_breast_cancer()
-
         case _:
             raise ValueError(f"dataset_name {dataset_name} is not supported")
 
