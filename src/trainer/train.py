@@ -7,12 +7,14 @@ from src.metrics.utils import (
     MetricRunnersRegistry,
     get_metrics,
 )
+from src.trainer.models.logger import ModelLogger
 from src.trainer.models.wrappers import ModelWrapper
 
 
 @dataclass(kw_only=True)
 class Trainer:
     model_wrapper: ModelWrapper
+    model_logger: ModelLogger
     metric_runners_registry: MetricRunnersRegistry
 
     def run(self, x_train: pd.DataFrame, y_train: pd.Series):
@@ -31,12 +33,16 @@ class Trainer:
         with mlflow.start_run() as _:
             mlflow.log_params(model_params)
             mlflow.log_metrics(metrics)
-            self.model_wrapper.log_model(x_train)
+            self.model_logger.log(self.model_wrapper.model, x_train)
 
 
 def trainer_factory(
-    model_wrapper: ModelWrapper, metric_runners_registry: MetricRunnersRegistry
+    model_wrapper: ModelWrapper,
+    model_logger: ModelLogger,
+    metric_runners_registry: MetricRunnersRegistry,
 ) -> Trainer:
     return Trainer(
-        model_wrapper=model_wrapper, metric_runners_registry=metric_runners_registry
+        model_wrapper=model_wrapper,
+        model_logger=model_logger,
+        metric_runners_registry=metric_runners_registry,
     )
