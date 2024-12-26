@@ -9,11 +9,12 @@ from src.trainer.models.classification import (
 )
 from src.trainer.models.logger import SklearnModelLogger
 from src.trainer.train import trainer_factory
+from src.utils.mlflow.experiment import set_experiment
 
 load_dotenv()
 
 
-SKLEARN_DATASET = "breast_cancer"
+DATASET_NAME = "wine"
 TYPE_OF_PROBLEM = "classification"
 
 
@@ -22,6 +23,7 @@ MODEL_WRAPPERS = [
     LogisticRegressionWrapper(),
     SGDClassifierWrapper(),
 ]
+
 
 MODEL_LOGGER = SklearnModelLogger()
 
@@ -34,9 +36,10 @@ METRICS_CONFIGURATION = {
 
 
 def main():
-    global MODEL_WRAPPERS, METRICS_CONFIGURATION, SKLEARN_DATASET
+    global MODEL_WRAPPERS, METRICS_CONFIGURATION, DATASET_NAME
 
-    X, y = load_dataset(SKLEARN_DATASET)
+    set_experiment(TYPE_OF_PROBLEM, DATASET_NAME)
+    X, y = load_dataset(DATASET_NAME)
 
     metric_runners_registry = metric_runners_registry_factory(
         TYPE_OF_PROBLEM, METRICS_CONFIGURATION

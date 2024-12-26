@@ -1,4 +1,4 @@
-from sklearn.datasets import load_breast_cancer, load_iris
+from sklearn.datasets import load_breast_cancer, load_diabetes, load_iris, load_wine
 from sklearn.utils import Bunch
 
 
@@ -8,6 +8,10 @@ def load_data_factory(dataset_name: str) -> Bunch | tuple:
             return load_iris()
         case "breast_cancer":
             return load_breast_cancer()
+        case "wine":
+            return load_wine()
+        case "diabetes":
+            return load_diabetes()
         case _:
             raise ValueError(f"dataset_name {dataset_name} is not supported")
 
