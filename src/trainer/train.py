@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 import mlflow
+import mlflow.data.pandas_dataset
 import pandas as pd
 
 from src.metrics.utils import (
@@ -9,6 +10,7 @@ from src.metrics.utils import (
 )
 from src.trainer.models.logger import ModelLogger
 from src.trainer.models.wrappers import ModelWrapper
+from src.utils.mlflow.log import log_dataset, log_metrics, log_params
 
 
 @dataclass(kw_only=True)
@@ -31,8 +33,10 @@ class Trainer:
 
     def log_into_mlflow(self, model_params: dict, metrics: dict, x_train: pd.DataFrame):
         with mlflow.start_run() as _:
-            mlflow.log_params(model_params)
-            mlflow.log_metrics(metrics)
+            log_dataset(x_train, context="training")
+            log_params(model_params)
+            log_metrics(metrics)
+
             self.model_logger.log(self.model_wrapper.model, x_train)
 
 

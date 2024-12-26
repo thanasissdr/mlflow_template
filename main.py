@@ -14,7 +14,7 @@ from src.utils.mlflow.experiment import set_experiment
 load_dotenv()
 
 
-DATASET_NAME = "wine"
+DATASET_NAME = "breast_cancer"
 TYPE_OF_PROBLEM = "classification"
 
 
@@ -39,7 +39,7 @@ def main():
     global MODEL_WRAPPERS, METRICS_CONFIGURATION, DATASET_NAME
 
     set_experiment(TYPE_OF_PROBLEM, DATASET_NAME)
-    X, y = load_dataset(DATASET_NAME)
+    X, y = load_dataset(DATASET_NAME, as_frame=True)
 
     metric_runners_registry = metric_runners_registry_factory(
         TYPE_OF_PROBLEM, METRICS_CONFIGURATION
