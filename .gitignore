@@ -1,5 +1,6 @@
 .env.bak
 mlruns
+models
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,python,windows,jupyternotebooks
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,python,windows,jupyternotebooks

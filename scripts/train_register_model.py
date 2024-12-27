@@ -11,10 +11,10 @@ from src.trainer.models.logger import SklearnModelLogger
 from src.trainer.train import trainer_factory
 from src.utils.mlflow.experiment import set_experiment
 
-load_dotenv()
+load_dotenv("./infrastructure/.env")
 
 
-DATASET_NAME = "breast_cancer"
+DATASET_NAME = "iris"
 TYPE_OF_PROBLEM = "classification"
 
 

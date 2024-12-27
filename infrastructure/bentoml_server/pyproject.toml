@@ -1,0 +1,10 @@
+[project]
+name = "bentoml-server"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12.8"
+dependencies = [
+    "mlflow>=2.19.0",
+    "pandas>=2.2.3",
+]
