@@ -11,7 +11,7 @@ from src.trainer.models.logger import SklearnModelLogger
 from src.trainer.train import trainer_factory
 from src.utils.mlflow.experiment import set_experiment
 
-load_dotenv("./infrastructure/.env")
+load_dotenv("./infrastructure/mlflow/.env")
 
 
 DATASET_NAME = "iris"

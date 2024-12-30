@@ -8,24 +8,22 @@ This repo serves as a playground for mlflow / bentoml
 - uv 
 
 
-### Docker
+##  Train/Register models through MLFlow
+### Spin up the minio/mlflow server services
+```
+docker compose -f infrastructure/mlflow/docker-compose.yml --profile default up
+```
+- Go to localhost:9000 and create a bucket called `mlflow`
+
 ```cmd
-docker network create shared_network
-```
-
-- Train/Register models through MLFlow
-```
-docker compose -f docker-compose.main.yml up
-./.venv/Scripts/activate
-
 python -m scripts.train_register_model
 ```
 ## Serve model
 
 ### Mlflow
-- Splin up the server for predictions
+- Spin up the mlflow server for predictions
 ```
-docker compose -f infrastructure/docker-compose.mlflow-server.yml up
+docker compose -f infrastructure/mlflow/docker-compose.yml --profile serving up
 ```
 Open postman and run the following `POST` request: 
 http://localhost:5001/invocations with the following payload:

@@ -12,7 +12,7 @@ RUN pip install -r requirements.txt
 
 COPY ./infrastructure/bentoml_server/bentofile.yaml bentofile.yaml
 COPY ./scripts/service.py scripts/service.py
-COPY ./models models
+COPY ./mlruns/models / models
 
 
 # Set BentoML CLI as the entrypoint

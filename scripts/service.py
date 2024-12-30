@@ -1,7 +1,6 @@
+import bentoml
 import numpy as np
 import pandas as pd
-
-import bentoml
 from bentoml.models import BentoModel
 
 BENTO_MODEL_ID = "my_model:latest"
