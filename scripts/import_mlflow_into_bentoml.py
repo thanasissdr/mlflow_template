@@ -1,9 +1,12 @@
-from src.utils.bentoml.import_mlflow_model import import_mlflow_model_into_bentoml
+import os
 
-BUCKET_NAME = "mlflow"
+from src.utils.bentoml_model.import_mlflow_model import import_mlflow_model_into_bentoml
 
-EXPERIMENT_ID = "542485645421180081"
-RUN_ID = "ffe3f2d5f1e943ff9b9168fe53fce50d"
+BUCKET_NAME = os.environ["BUCKET_NAME"]
+EXPERIMENT_ID = os.environ["EXPERIMENT_ID"]
+RUN_ID = os.environ["RUN_ID"]
+
+
 MODEL_PATH = f"{EXPERIMENT_ID}/{RUN_ID}/artifacts/sklearn-model"
 
 

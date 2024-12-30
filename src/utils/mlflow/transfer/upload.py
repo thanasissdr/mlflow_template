@@ -1,9 +1,7 @@
 import logging
-import os
 from tempfile import _TemporaryFileWrapper
 from typing import Any, Callable
 
-import mlflow
 from boto3.exceptions import S3UploadFailedError
 
 from src.utils.mlflow.bucket import create_bucket_if_not_exists
@@ -13,8 +11,6 @@ logging.basicConfig(
     format="%(asctime)s-%(name)s-%(levelname)s-%(message)s", level=logging.INFO
 )
 logger = logging.getLogger(__name__)
-
-mlflow.set_tracking_uri(os.environ["MLFLOW_TRACKING_URI"])
 
 
 def upload_file(client: Any, object: str, bucket_name: str, remote_path: str):

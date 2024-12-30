@@ -1,3 +1,5 @@
+name: mlflow_template
+
 services:
 
   minio:
@@ -60,11 +62,43 @@ services:
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
 
-    command: /bin/bash -c "pip install --upgrade pip && pip install boto3 && mlflow models serve -m models:/RandomForestClassifier/1 --host 0.0.0.0 --no-conda -p 5001"
+      
+
+    command: /bin/bash -c "pip install --upgrade pip && pip install boto3 && mlflow models serve -m models:/${REGISTERED_MODEL}/${REGISTERED_MODEL_VERSION} --host 0.0.0.0 --no-conda -p 5001"
     
     profiles:
       - serving # This is used in order not to spin up that service when docker-compose up, because the model might be missing
 
+
+  bentoml.server:
+
+    build:
+      context: ..
+      dockerfile: infrastructure/Dockerfile.bentoml
+      args:
+        PYTHON_VERSION: 3.12.8
+
+    environment:
+      BUCKET_NAME: mlflow
+      EXPERIMENT_ID: 1
+      RUN_ID: 310f64f68f41448c83e981fce366ede4
+      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
+      MLFLOW_TRACKING_URI: http://mlflow.ui:5000
+
+    env_file:
+      .env
+
+    ports:
+      - 3000:3000
+
+
+    volumes:
+      - ${USERPROFILE}/bentoml:/root/bentoml
+      - ./models:/models:rw
+
+    profiles:
+      - serving
+      
 volumes:
   minio_data:
   mlflow_data:

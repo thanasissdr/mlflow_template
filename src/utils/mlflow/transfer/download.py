@@ -1,9 +1,6 @@
 import logging
-import os
 from tempfile import NamedTemporaryFile
 from typing import Any
-
-import mlflow
 
 from src.utils.file.characteristics import get_dirname
 from src.utils.file.create import create_dir_if_not_exists
@@ -13,8 +10,6 @@ logging.basicConfig(
     format="%(asctime)s-%(name)s-%(levelname)s-%(message)s", level=logging.INFO
 )
 logger = logging.getLogger(__name__)
-
-mlflow.set_tracking_uri(os.environ["MLFLOW_TRACKING_URI"])
 
 
 def download_file(

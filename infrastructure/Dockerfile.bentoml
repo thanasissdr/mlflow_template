@@ -1,0 +1,20 @@
+ARG PYTHON_VERSION
+FROM python:${PYTHON_VERSION:-3.12.8-slim}
+
+WORKDIR /app
+
+COPY ./requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+
+COPY ./infrastructure/bentofile.yaml bentofile.yaml
+COPY ./scripts/service.py scripts/service.py
+COPY ./scripts/import_mlflow_into_bentoml.py scripts/import_mlflow_into_bentoml.py
+COPY src src
+
+COPY ./entrypoint.sh entrypoint.sh
+
+# Ensure entrypoint.sh is executable
+RUN chmod +x entrypoint.sh
+# Set BentoML CLI as the entrypoint
+ENTRYPOINT ["/bin/bash", "/app/entrypoint.sh"]

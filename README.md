@@ -18,13 +18,14 @@ docker compose -f infrastructure/mlflow/docker-compose.yml --profile default up
 ```cmd
 python -m scripts.train_register_model
 ```
-## Serve model
-
-### Mlflow
+## Serve model [Mlflow, BentoML]
 - Spin up the mlflow server for predictions
 ```
 docker compose -f infrastructure/mlflow/docker-compose.yml --profile serving up
 ```
+
+### Mlflow
+
 Open postman and run the following `POST` request: 
 http://localhost:5001/invocations with the following payload:
 
@@ -51,16 +52,6 @@ http://localhost:5001/invocations with the following payload:
 
 
 ### BentoML
-- Make sure that an mlflow model is registered into the BentoML store
-```cmd
-python -m scripts.import_mlflow_into_bentoml
-```
-
-
-- Spin up the server for predictions
-```cmd
-docker compose -f infrastructure/bentoml_server/docker-compose.yml up --build
-```
 
 Open postman and run the following `POST` request: 
 http://localhost:3000/predict with the following payload:

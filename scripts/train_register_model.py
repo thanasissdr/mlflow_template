@@ -1,5 +1,3 @@
-from dotenv import load_dotenv
-
 from src.dataset.load import load_dataset
 from src.metrics.utils import metric_runners_registry_factory
 from src.trainer.models.classification import (
@@ -9,14 +7,13 @@ from src.trainer.models.classification import (
 )
 from src.trainer.models.logger import SklearnModelLogger
 from src.trainer.train import trainer_factory
+from src.utils.mlflow.client import set_tracking_uri
 from src.utils.mlflow.experiment import set_experiment
-
-load_dotenv("./infrastructure/mlflow/.env")
-
 
 DATASET_NAME = "iris"
 TYPE_OF_PROBLEM = "classification"
 
+set_tracking_uri()
 
 MODEL_WRAPPERS = [
     RandomForestClassifierWrapper(),
